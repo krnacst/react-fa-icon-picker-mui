@@ -1,0 +1,75 @@
+{
+  "name": "react-fa-icon-picker-mui",
+  "version": "1.0.0",
+  "description": "Icon selector for FontAwesome icons with Material UI design",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "keywords": [
+    "icon picker",
+    "fontawesome icon picker",
+    "fontawesome react icon picker",
+    "fontawesome react mui icon picker",
+    "fontawesome react material ui icon picker",
+    "fontawesome",
+    "react fontawesome",
+    "material ui",
+    "mui",
+    "react mui",
+    "react material ui",
+    "fontawesome mui",
+    "fontawesome react mui",
+    "fontawesome react material ui"
+  ],
+  "author": "Krnács Tamás (krnacst)",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
+    "lint": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\"",
+    "prettier": "prettier --write \"{src,tests,example/src}/**/*.{js,ts,jsx,tsx}\"",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run prettier && npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krnacst/react-fa-icon-picker-mui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/krnacst/react-fa-icon-picker-mui/issues"
+  },
+  "homepage": "https://github.com/krnacst/react-fa-icon-picker-mui",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.10.6",
+    "font-awesome": "^4.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@typescript-eslint/eslint-plugin": "^5.50.0",
+    "@typescript-eslint/parser": "^5.50.0",
+    "eslint": "^8.33.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.8.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "^5.0.1",
+    "typescript": "^4.9.5"
+  }
+}
