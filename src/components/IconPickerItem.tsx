@@ -2,7 +2,6 @@ import { Box, Button, ButtonTypeMap, ExtendButtonBase, Tooltip, TooltipProps } f
 import { BoxTypeMap, Theme } from '@mui/system'
 import { grey } from '@mui/material/colors'
 import { OverridableComponent } from '@mui/material/OverridableComponent'
-import 'font-awesome/css/font-awesome.min.css'
 import { IconType, IconSize } from '../types/iconType'
 import React from 'react'
 

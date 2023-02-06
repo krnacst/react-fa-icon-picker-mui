@@ -10,6 +10,11 @@ import {
   DialogProps,
   DialogTitle,
   ExtendButtonBase,
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
   TextField,
   TextFieldProps,
   TooltipProps,
@@ -20,6 +25,7 @@ import { ChangeEvent, useState } from 'react'
 import { iconList } from '../types/iconList'
 import IconPickerItem from './IconPickerItem'
 import { IconType, IconSize } from '../types/iconType'
+import AppsIcon from '@mui/icons-material/Apps';
 import React from 'react'
 
 interface IconPickerProps {
@@ -28,7 +34,7 @@ interface IconPickerProps {
   showSearch?: boolean
   searchPlaceholder?: string
   pickerButtonIconSize?: IconSize
-  pickerButtonText?: string
+  pickerInputLabel?: string
   pickerButtonProps?: ExtendButtonBase<ButtonTypeMap<unknown, 'button'>>
   dialogTitleText?: string
   dialogCancelText?: string
@@ -50,7 +56,7 @@ export function IconPicker({
   showSearch,
   searchPlaceholder,
   pickerButtonIconSize,
-  pickerButtonText,
+  pickerInputLabel,
   pickerButtonProps,
   dialogTitleText,
   dialogCancelText,
@@ -78,9 +84,31 @@ export function IconPicker({
 
   return (
     <>
-      <Button onClick={handleClickIconPicker} {...pickerButtonProps}>
-        {value ? <i className={`fa ${value} fa-${pickerButtonIconSize}x`} /> : pickerButtonText}
-      </Button>
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+      {/* <Button onClick={handleClickIconPicker} {...pickerButtonProps}>
+        {value ? <i className={`fa ${value} fa-${pickerButtonIconSize}x`} /> : ""}
+      </Button> */}
+      
+      <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+        <InputLabel>{pickerInputLabel}</InputLabel>
+        <OutlinedInput
+          type="text"
+          value={value}
+          onChange={() => !!onChange && onChange(value)}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                onClick={handleClickIconPicker}
+                edge="end"
+              >
+                <AppsIcon />
+              </IconButton>
+            </InputAdornment>
+          }
+          label="Password"
+        />
+        </FormControl>
 
       <Dialog
         open={showIconListModal}
@@ -140,7 +168,7 @@ export function IconPicker({
 IconPicker.defaultProps = {
   showSearch: false,
   searchPlaceholder: 'Search',
-  pickerButtonText: 'Icon',
+  pickerInputLabel: 'Icon',
   dialogTitleText: 'FontAwesome Icon Picker',
   dialogCancelText: 'Cancel',
   pickerButtonIconSize: 2,

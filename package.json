@@ -1,6 +1,6 @@
 {
-  "name": "react-fa-icon-picker-mui",
-  "version": "1.0.0",
+  "name": "react-fa-iconpicker-mui",
+  "version": "1.0.1",
   "description": "Icon selector for FontAwesome icons with Material UI design",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -52,8 +52,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@mui/material": "^5.10.6",
-    "font-awesome": "^4.7.0"
+    "@mui/material": "^5.10.6"
   },
   "devDependencies": {
     "@types/node": "^18.11.18",
