@@ -11,6 +11,7 @@ import {
   DialogTitle,
   ExtendButtonBase,
   FormControl,
+  FormControlTypeMap,
   IconButton,
   InputAdornment,
   InputLabel,
@@ -29,32 +30,33 @@ import React from 'react'
 
 interface IconPickerProps {
   value: IconType
-  inputName?: string
+  name?: string
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void
   showSearch?: boolean
   searchPlaceholder?: string
+  formControlProps?: OverridableComponent<FormControlTypeMap<object, "div">>
   pickerInputLabel?: string
-  pickerButtonProps?: ExtendButtonBase<ButtonTypeMap<unknown, 'button'>>
   dialogTitleText?: string
   dialogCancelText?: string
   dialogProps?: DialogProps
   dialogContentProps?: DialogContentProps
   dialogActionsProps?: DialogActionsProps
-  searchFieldContainer?: OverridableComponent<BoxTypeMap<unknown, 'div', Theme>>
+  searchFieldContainer?: OverridableComponent<BoxTypeMap<object, 'div', Theme>>
   searchFieldProps?: TextFieldProps
-  cancelButtonProps?: ExtendButtonBase<ButtonTypeMap<unknown, 'button'>>
-  iconListContainerProps?: OverridableComponent<BoxTypeMap<unknown, 'div', Theme>>
+  cancelButtonProps?: ExtendButtonBase<ButtonTypeMap<object, 'button'>>
+  iconListContainerProps?: OverridableComponent<BoxTypeMap<object, 'div', Theme>>
   iconTooltipProps?: TooltipProps
-  iconButtonProps?: ExtendButtonBase<ButtonTypeMap<unknown, 'button'>>
+  iconButtonProps?: ExtendButtonBase<ButtonTypeMap<object, 'button'>>
   iconListIconSize?: IconSize
 }
 
 export function IconPicker({
   value,
-  inputName,
+  name,
   onChange,
   showSearch,
   searchPlaceholder,
+  formControlProps,
   pickerInputLabel,
   dialogTitleText,
   dialogCancelText,
@@ -91,12 +93,15 @@ export function IconPicker({
     <>
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
-      <FormControl variant="outlined">
+      <FormControl
+        variant="outlined"
+        {...formControlProps}
+      >
         <InputLabel>{pickerInputLabel}</InputLabel>
         <OutlinedInput
           type="text"
           value={icon}
-          name={inputName}
+          name={name}
           onChange={e => {
             !!onChange && onChange(e as ChangeEvent<HTMLInputElement>)
             setIcon(e.target.value as IconType)
@@ -175,5 +180,5 @@ IconPicker.defaultProps = {
   dialogCancelText: 'Cancel',
   pickerButtonIconSize: 2,
   iconListIconSize: 2,
-  inputName: 'icon',
+  name: 'icon',
 }
