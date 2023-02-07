@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   ButtonTypeMap,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogActionsProps,
@@ -16,13 +17,14 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
+  Pagination,
   TextField,
   TextFieldProps,
   TooltipProps,
 } from '@mui/material'
 import { BoxTypeMap, Theme } from '@mui/system'
 import { OverridableComponent } from '@mui/material/OverridableComponent'
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { iconList } from '../types/iconList'
 import IconPickerItem from './IconPickerItem'
 import { IconType, IconSize } from '../types/iconType'
@@ -34,6 +36,7 @@ interface IconPickerProps {
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void
   showSearch?: boolean
   searchPlaceholder?: string
+  iconPerPage?: number
   formControlProps?: OverridableComponent<FormControlTypeMap<object, 'div'>>
   pickerInputLabel?: string
   dialogTitleText?: string
@@ -56,6 +59,7 @@ export function IconPicker({
   onChange,
   showSearch,
   searchPlaceholder,
+  iconPerPage,
   formControlProps,
   pickerInputLabel,
   dialogTitleText,
@@ -74,7 +78,8 @@ export function IconPicker({
   const [showIconListModal, setShowIconListModal] = useState<boolean>(false)
   const [search, setSearch] = useState<string>('')
   const [icon, setIcon] = useState<IconType>('fa-list')
-  const inputRef = useRef<HTMLInputElement>(null)
+  const [page, setPage] = useState<number>(1)
+  const iconListLength = iconList.length
 
   useEffect(() => {
     if (value && value.length > 0) {
@@ -95,11 +100,26 @@ export function IconPicker({
     setIcon(e.target.value as IconType)
   }
 
+  const handlePageChange = (e: ChangeEvent<unknown>, page: number) => {
+    e.preventDefault()
+    setPage(page)
+  }
+
+  const paginationCount = () => {
+    if (search !== "") {
+      const filteredListLength = iconList.filter((icon: IconType) => icon.toLowerCase().includes(search?.toLowerCase())).length
+
+      return Math.ceil(filteredListLength / (iconPerPage as number))
+    }
+
+    return Math.ceil(iconListLength / (iconPerPage as number))
+  }
+
   return (
     <>
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
-      <FormControl variant="outlined" ref={inputRef} {...formControlProps}>
+      <FormControl variant="outlined" {...formControlProps}>
         <InputLabel>{pickerInputLabel}</InputLabel>
         <OutlinedInput
           type="text"
@@ -109,7 +129,11 @@ export function IconPicker({
           endAdornment={
             <InputAdornment position="end">
               <IconButton onClick={handleClickIconPicker} edge="end">
-                <i className={`fa ${icon}`} />
+                {icon === "" ? <i className="fa fa-list" /> : iconList.includes(icon) ?
+                  <i className={`fa ${icon}`} />
+                :
+                  <CircularProgress size={20} />
+                }
               </IconButton>
             </InputAdornment>
           }
@@ -124,10 +148,10 @@ export function IconPicker({
         maxWidth={'sm'}
         {...dialogProps}
       >
-        <DialogTitle>{dialogTitleText}</DialogTitle>
-        <DialogContent {...dialogContentProps}>
+        <DialogTitle>
+          {dialogTitleText}
           {showSearch && (
-            <Box sx={{ mb: 1 }} {...searchFieldContainer}>
+            <Box sx={{ mt: 2 }} {...searchFieldContainer}>
               <TextField
                 size="small"
                 variant="standard"
@@ -137,9 +161,12 @@ export function IconPicker({
                 {...searchFieldProps}
               />
             </Box>
-          )}
+          )}  
+        </DialogTitle>
+        <DialogContent sx={{ textAlign: "center" }} {...dialogContentProps}>
           {iconList
-            .filter((i: string) => i.toLowerCase().includes(search?.toLowerCase()))
+            .filter((icon: IconType) => icon.toLowerCase().includes(search?.toLowerCase()))
+            .slice(((page-1) * (iconPerPage as number)), (page * (iconPerPage as number)))
             .map((icon: IconType, index: number) => (
               <IconPickerItem
                 key={index}
@@ -156,6 +183,17 @@ export function IconPicker({
               />
             ))}
         </DialogContent>
+        {paginationCount() > 0 && 
+          <DialogActions sx={{ display: 'block' }}>
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <Pagination
+                page={page}
+                count={paginationCount()}
+                onChange={handlePageChange}
+              />
+            </Box>
+          </DialogActions>
+        }
         <DialogActions {...dialogActionsProps}>
           <Button
             onClick={() => {
@@ -175,6 +213,7 @@ export function IconPicker({
 IconPicker.defaultProps = {
   showSearch: false,
   searchPlaceholder: 'Search',
+  iconPerPage: 54,
   pickerInputLabel: 'Icon',
   dialogTitleText: 'FontAwesome Icon Picker',
   dialogCancelText: 'Cancel',
