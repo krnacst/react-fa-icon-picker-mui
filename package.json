@@ -1,6 +1,6 @@
 {
   "name": "react-fa-iconpicker-mui",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "Icon selector for FontAwesome icons with Material UI design",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -71,5 +71,17 @@
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
     "typescript": "^4.9.5"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

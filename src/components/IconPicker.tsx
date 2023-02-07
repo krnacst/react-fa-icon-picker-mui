@@ -21,19 +21,18 @@ import {
 } from '@mui/material'
 import { BoxTypeMap, Theme } from '@mui/system'
 import { OverridableComponent } from '@mui/material/OverridableComponent'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { iconList } from '../types/iconList'
 import IconPickerItem from './IconPickerItem'
 import { IconType, IconSize } from '../types/iconType'
-import AppsIcon from '@mui/icons-material/Apps';
 import React from 'react'
 
 interface IconPickerProps {
   value: IconType
-  onChange?: (value: IconType) => void
+  inputName?: string
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void
   showSearch?: boolean
   searchPlaceholder?: string
-  pickerButtonIconSize?: IconSize
   pickerInputLabel?: string
   pickerButtonProps?: ExtendButtonBase<ButtonTypeMap<unknown, 'button'>>
   dialogTitleText?: string
@@ -52,12 +51,11 @@ interface IconPickerProps {
 
 export function IconPicker({
   value,
+  inputName,
   onChange,
   showSearch,
   searchPlaceholder,
-  pickerButtonIconSize,
   pickerInputLabel,
-  pickerButtonProps,
   dialogTitleText,
   dialogCancelText,
   dialogProps,
@@ -73,6 +71,13 @@ export function IconPicker({
 }: IconPickerProps) {
   const [showIconListModal, setShowIconListModal] = useState<boolean>(false)
   const [search, setSearch] = useState<string>('')
+  const [icon, setIcon] = useState<IconType>('fa-list')
+
+  useEffect(() => {
+    if (value && value.length > 0) {
+      setIcon(value)
+    }
+  }, [])
 
   const handleClickIconPicker = () => {
     setShowIconListModal(!showIconListModal)
@@ -86,29 +91,26 @@ export function IconPicker({
     <>
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
-      {/* <Button onClick={handleClickIconPicker} {...pickerButtonProps}>
-        {value ? <i className={`fa ${value} fa-${pickerButtonIconSize}x`} /> : ""}
-      </Button> */}
-      
-      <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+      <FormControl variant="outlined">
         <InputLabel>{pickerInputLabel}</InputLabel>
         <OutlinedInput
           type="text"
-          value={value}
-          onChange={() => !!onChange && onChange(value)}
+          value={icon}
+          name={inputName}
+          onChange={e => {
+            !!onChange && onChange(e as ChangeEvent<HTMLInputElement>)
+            setIcon(e.target.value as IconType)
+          }}
           endAdornment={
             <InputAdornment position="end">
-              <IconButton
-                onClick={handleClickIconPicker}
-                edge="end"
-              >
-                <AppsIcon />
+              <IconButton onClick={handleClickIconPicker} edge="end">
+                <i className={`fa ${icon}`} />
               </IconButton>
             </InputAdornment>
           }
-          label="Password"
+          label={pickerInputLabel}
         />
-        </FormControl>
+      </FormControl>
 
       <Dialog
         open={showIconListModal}
@@ -142,7 +144,7 @@ export function IconPicker({
                 iconButtonProps={iconButtonProps}
                 iconListIconSize={iconListIconSize}
                 onClick={(value: IconType) => {
-                  !!onChange && onChange(value)
+                  setIcon(value)
                   setShowIconListModal(false)
                   setSearch('')
                 }}
@@ -173,4 +175,5 @@ IconPicker.defaultProps = {
   dialogCancelText: 'Cancel',
   pickerButtonIconSize: 2,
   iconListIconSize: 2,
+  inputName: 'icon',
 }
