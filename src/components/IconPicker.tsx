@@ -22,7 +22,7 @@ import {
 } from '@mui/material'
 import { BoxTypeMap, Theme } from '@mui/system'
 import { OverridableComponent } from '@mui/material/OverridableComponent'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { iconList } from '../types/iconList'
 import IconPickerItem from './IconPickerItem'
 import { IconType, IconSize } from '../types/iconType'
@@ -34,7 +34,7 @@ interface IconPickerProps {
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void
   showSearch?: boolean
   searchPlaceholder?: string
-  formControlProps?: OverridableComponent<FormControlTypeMap<object, "div">>
+  formControlProps?: OverridableComponent<FormControlTypeMap<object, 'div'>>
   pickerInputLabel?: string
   dialogTitleText?: string
   dialogCancelText?: string
@@ -74,6 +74,7 @@ export function IconPicker({
   const [showIconListModal, setShowIconListModal] = useState<boolean>(false)
   const [search, setSearch] = useState<string>('')
   const [icon, setIcon] = useState<IconType>('fa-list')
+  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (value && value.length > 0) {
@@ -89,23 +90,22 @@ export function IconPicker({
     setSearch(e.target.value)
   }
 
+  const handleFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
+    !!onChange && onChange(e as ChangeEvent<HTMLInputElement>)
+    setIcon(e.target.value as IconType)
+  }
+
   return (
     <>
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
-      <FormControl
-        variant="outlined"
-        {...formControlProps}
-      >
+      <FormControl variant="outlined" ref={inputRef} {...formControlProps}>
         <InputLabel>{pickerInputLabel}</InputLabel>
         <OutlinedInput
           type="text"
           value={icon}
           name={name}
-          onChange={e => {
-            !!onChange && onChange(e as ChangeEvent<HTMLInputElement>)
-            setIcon(e.target.value as IconType)
-          }}
+          onChange={handleFieldChange}
           endAdornment={
             <InputAdornment position="end">
               <IconButton onClick={handleClickIconPicker} edge="end">
@@ -149,7 +149,7 @@ export function IconPicker({
                 iconButtonProps={iconButtonProps}
                 iconListIconSize={iconListIconSize}
                 onClick={(value: IconType) => {
-                  setIcon(value)
+                  !!handleFieldChange && handleFieldChange({ target: { value, name } } as ChangeEvent<HTMLInputElement>)
                   setShowIconListModal(false)
                   setSearch('')
                 }}
