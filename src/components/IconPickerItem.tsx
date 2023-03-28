@@ -1,6 +1,5 @@
-import { Box, Button, ButtonTypeMap, ExtendButtonBase, Tooltip, TooltipProps } from '@mui/material'
+import { Box, Button, ButtonTypeMap, ExtendButtonBase, Tooltip, TooltipProps, useTheme } from '@mui/material'
 import { BoxTypeMap, Theme } from '@mui/system'
-import { grey } from '@mui/material/colors'
 import { OverridableComponent } from '@mui/material/OverridableComponent'
 import { IconType, IconSize } from '../types/iconType'
 import React from 'react'
@@ -22,10 +21,15 @@ export function IconPickerItem({
   iconButtonProps,
   iconListIconSize,
 }: IconPickerItemProps) {
+  const theme = useTheme()
   return (
     <Box sx={{ display: 'inline-block', m: 1.5 }} {...iconListContainerProps}>
       <Tooltip title={icon} arrow {...iconTooltipProps}>
-        <Button sx={{ color: grey[800] }} onClick={() => !!onClick && onClick(icon)} {...iconButtonProps}>
+        <Button
+          sx={{ color: theme.palette.text.primary }}
+          onClick={() => !!onClick && onClick(icon)}
+          {...iconButtonProps}
+        >
           <i className={`fa ${icon} fa-${iconListIconSize}x`} />
         </Button>
       </Tooltip>

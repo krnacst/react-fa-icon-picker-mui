@@ -1,10 +1,10 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { IconPicker } from "./components/IconPicker"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { IconPicker } from './components/IconPicker'
 
 ReactDOM.render(
   <>
     <IconPicker value="" />
-  </>
-  ,document.getElementById("font-awesome")
+  </>,
+  document.getElementById('font-awesome')
 )

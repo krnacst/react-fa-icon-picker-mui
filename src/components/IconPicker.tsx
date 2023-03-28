@@ -106,8 +106,10 @@ export function IconPicker({
   }
 
   const paginationCount = () => {
-    if (search !== "") {
-      const filteredListLength = iconList.filter((icon: IconType) => icon.toLowerCase().includes(search?.toLowerCase())).length
+    if (search !== '') {
+      const filteredListLength = iconList.filter((icon: IconType) =>
+        icon.toLowerCase().includes(search?.toLowerCase())
+      ).length
 
       return Math.ceil(filteredListLength / (iconPerPage as number))
     }
@@ -129,11 +131,13 @@ export function IconPicker({
           endAdornment={
             <InputAdornment position="end">
               <IconButton onClick={handleClickIconPicker} edge="end">
-                {icon === "" ? <i className="fa fa-list" /> : iconList.includes(icon) ?
+                {icon === '' ? (
+                  <i className="fa fa-list" />
+                ) : iconList.includes(icon) ? (
                   <i className={`fa ${icon}`} />
-                :
+                ) : (
                   <CircularProgress size={20} />
-                }
+                )}
               </IconButton>
             </InputAdornment>
           }
@@ -161,12 +165,12 @@ export function IconPicker({
                 {...searchFieldProps}
               />
             </Box>
-          )}  
+          )}
         </DialogTitle>
-        <DialogContent sx={{ textAlign: "center" }} {...dialogContentProps}>
+        <DialogContent sx={{ textAlign: 'center' }} {...dialogContentProps}>
           {iconList
             .filter((icon: IconType) => icon.toLowerCase().includes(search?.toLowerCase()))
-            .slice(((page-1) * (iconPerPage as number)), (page * (iconPerPage as number)))
+            .slice((page - 1) * (iconPerPage as number), page * (iconPerPage as number))
             .map((icon: IconType, index: number) => (
               <IconPickerItem
                 key={index}
@@ -183,17 +187,13 @@ export function IconPicker({
               />
             ))}
         </DialogContent>
-        {paginationCount() > 0 && 
+        {paginationCount() > 0 && (
           <DialogActions sx={{ display: 'block' }}>
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <Pagination
-                page={page}
-                count={paginationCount()}
-                onChange={handlePageChange}
-              />
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Pagination page={page} count={paginationCount()} onChange={handlePageChange} />
             </Box>
           </DialogActions>
-        }
+        )}
         <DialogActions {...dialogActionsProps}>
           <Button
             onClick={() => {
