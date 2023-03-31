@@ -4,7 +4,12 @@ import { IconPicker } from './components/IconPicker'
 
 ReactDOM.render(
   <>
-    <IconPicker value="" />
+    <IconPicker
+      value=""
+      formControlProps={{
+        sx: { background: "red" }
+      }} 
+    />
   </>,
   document.getElementById('font-awesome')
 )

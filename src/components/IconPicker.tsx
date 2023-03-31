@@ -1,7 +1,8 @@
 import {
   Box,
+  BoxProps,
   Button,
-  ButtonTypeMap,
+  ButtonProps,
   CircularProgress,
   Dialog,
   DialogActions,
@@ -10,9 +11,8 @@ import {
   DialogContentProps,
   DialogProps,
   DialogTitle,
-  ExtendButtonBase,
   FormControl,
-  FormControlTypeMap,
+  FormControlProps,
   IconButton,
   InputAdornment,
   InputLabel,
@@ -22,8 +22,6 @@ import {
   TextFieldProps,
   TooltipProps,
 } from '@mui/material'
-import { BoxTypeMap, Theme } from '@mui/system'
-import { OverridableComponent } from '@mui/material/OverridableComponent'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { iconList } from '../types/iconList'
 import IconPickerItem from './IconPickerItem'
@@ -37,19 +35,19 @@ interface IconPickerProps {
   showSearch?: boolean
   searchPlaceholder?: string
   iconPerPage?: number
-  formControlProps?: OverridableComponent<FormControlTypeMap<object, 'div'>>
+  formControlProps?: FormControlProps
   pickerInputLabel?: string
   dialogTitleText?: string
   dialogCancelText?: string
   dialogProps?: DialogProps
   dialogContentProps?: DialogContentProps
   dialogActionsProps?: DialogActionsProps
-  searchFieldContainer?: OverridableComponent<BoxTypeMap<object, 'div', Theme>>
+  searchFieldContainer?: BoxProps
   searchFieldProps?: TextFieldProps
-  cancelButtonProps?: ExtendButtonBase<ButtonTypeMap<object, 'button'>>
-  iconListContainerProps?: OverridableComponent<BoxTypeMap<object, 'div', Theme>>
+  cancelButtonProps?: ButtonProps
+  iconListContainerProps?: BoxProps
   iconTooltipProps?: TooltipProps
-  iconButtonProps?: ExtendButtonBase<ButtonTypeMap<object, 'button'>>
+  iconButtonProps?: ButtonProps
   iconListIconSize?: IconSize
 }
 

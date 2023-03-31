@@ -1,15 +1,13 @@
-import { Box, Button, ButtonTypeMap, ExtendButtonBase, Tooltip, TooltipProps, useTheme } from '@mui/material'
-import { BoxTypeMap, Theme } from '@mui/system'
-import { OverridableComponent } from '@mui/material/OverridableComponent'
+import { Box, BoxProps, Button, ButtonProps, Tooltip, TooltipProps, useTheme } from '@mui/material'
 import { IconType, IconSize } from '../types/iconType'
 import React from 'react'
 
 interface IconPickerItemProps {
   icon: IconType
   onClick: (icon: IconType) => void
-  iconListContainerProps?: OverridableComponent<BoxTypeMap<unknown, 'div', Theme>>
+  iconListContainerProps?: BoxProps
   iconTooltipProps?: TooltipProps
-  iconButtonProps?: ExtendButtonBase<ButtonTypeMap<unknown, 'button'>>
+  iconButtonProps?: ButtonProps
   iconListIconSize?: IconSize
 }
 
