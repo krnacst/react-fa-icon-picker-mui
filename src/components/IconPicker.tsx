@@ -10,7 +10,6 @@ import {
   DialogContentProps,
   DialogProps,
   DialogTitle,
-  ExtendButtonBase,
   FormControl,
   FormControlTypeMap,
   IconButton,
@@ -22,8 +21,7 @@ import {
   TextFieldProps,
   TooltipProps,
 } from '@mui/material'
-import { BoxTypeMap, Theme } from '@mui/system'
-import { OverridableComponent } from '@mui/material/OverridableComponent'
+import { BoxTypeMap } from '@mui/system'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { iconList } from '../types/iconList'
 import IconPickerItem from './IconPickerItem'
