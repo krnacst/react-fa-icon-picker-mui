@@ -37,19 +37,19 @@ interface IconPickerProps {
   showSearch?: boolean
   searchPlaceholder?: string
   iconPerPage?: number
-  formControlProps?: OverridableComponent<FormControlTypeMap<object, 'div'>>
+  formControlProps?: FormControlTypeMap
   pickerInputLabel?: string
   dialogTitleText?: string
   dialogCancelText?: string
   dialogProps?: DialogProps
   dialogContentProps?: DialogContentProps
   dialogActionsProps?: DialogActionsProps
-  searchFieldContainer?: OverridableComponent<BoxTypeMap<object, 'div', Theme>>
+  searchFieldContainer?: BoxTypeMap
   searchFieldProps?: TextFieldProps
-  cancelButtonProps?: ExtendButtonBase<ButtonTypeMap<object, 'button'>>
-  iconListContainerProps?: OverridableComponent<BoxTypeMap<object, 'div', Theme>>
+  cancelButtonProps?: ButtonTypeMap
+  iconListContainerProps?: BoxTypeMap
   iconTooltipProps?: TooltipProps
-  iconButtonProps?: ExtendButtonBase<ButtonTypeMap<object, 'button'>>
+  iconButtonProps?: ButtonTypeMap
   iconListIconSize?: IconSize
 }
 
@@ -121,7 +121,7 @@ export function IconPicker({
     <>
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
-      <FormControl variant="outlined" {...formControlProps}>
+      <FormControl {...formControlProps}>
         <InputLabel>{pickerInputLabel}</InputLabel>
         <OutlinedInput
           type="text"
