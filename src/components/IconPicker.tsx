@@ -10,6 +10,7 @@ import {
   DialogContentProps,
   DialogProps,
   DialogTitle,
+  ExtendButtonBase,
   FormControl,
   FormControlTypeMap,
   IconButton,
@@ -21,7 +22,8 @@ import {
   TextFieldProps,
   TooltipProps,
 } from '@mui/material'
-import { BoxTypeMap } from '@mui/system'
+import { BoxTypeMap, Theme } from '@mui/system'
+import { OverridableComponent } from '@mui/material/OverridableComponent'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { iconList } from '../types/iconList'
 import IconPickerItem from './IconPickerItem'
@@ -35,19 +37,19 @@ interface IconPickerProps {
   showSearch?: boolean
   searchPlaceholder?: string
   iconPerPage?: number
-  formControlProps?: FormControlTypeMap
+  formControlProps?: OverridableComponent<FormControlTypeMap<object, 'div'>>
   pickerInputLabel?: string
   dialogTitleText?: string
   dialogCancelText?: string
   dialogProps?: DialogProps
   dialogContentProps?: DialogContentProps
   dialogActionsProps?: DialogActionsProps
-  searchFieldContainer?: BoxTypeMap
+  searchFieldContainer?: OverridableComponent<BoxTypeMap<object, 'div', Theme>>
   searchFieldProps?: TextFieldProps
-  cancelButtonProps?: ButtonTypeMap
-  iconListContainerProps?: BoxTypeMap
+  cancelButtonProps?: ExtendButtonBase<ButtonTypeMap<object, 'button'>>
+  iconListContainerProps?: OverridableComponent<BoxTypeMap<object, 'div', Theme>>
   iconTooltipProps?: TooltipProps
-  iconButtonProps?: ButtonTypeMap
+  iconButtonProps?: ExtendButtonBase<ButtonTypeMap<object, 'button'>>
   iconListIconSize?: IconSize
 }
 
@@ -119,7 +121,7 @@ export function IconPicker({
     <>
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
-      <FormControl {...formControlProps}>
+      <FormControl variant="outlined" {...formControlProps}>
         <InputLabel>{pickerInputLabel}</InputLabel>
         <OutlinedInput
           type="text"
@@ -212,7 +214,7 @@ IconPicker.defaultProps = {
   showSearch: false,
   searchPlaceholder: 'Search',
   iconPerPage: 54,
-  pickerInputLabel: 'Icon',
+  pickerInputLabel: '',
   dialogTitleText: 'FontAwesome Icon Picker',
   dialogCancelText: 'Cancel',
   pickerButtonIconSize: 2,
