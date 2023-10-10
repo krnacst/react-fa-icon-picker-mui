@@ -83,7 +83,7 @@ export function IconPicker({
     if (value && value.length > 0) {
       setIcon(value)
     }
-  }, [])
+  }, [value])
 
   const handleClickIconPicker = () => {
     setShowIconListModal(!showIconListModal)
