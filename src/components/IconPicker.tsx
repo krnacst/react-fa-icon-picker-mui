@@ -53,15 +53,15 @@ interface IconPickerProps {
 
 export function IconPicker({
   value,
-  name,
+  name = 'icon',
   onChange,
-  showSearch,
-  searchPlaceholder,
-  iconPerPage,
+  showSearch = false,
+  searchPlaceholder = 'Search',
+  iconPerPage = 54,
   formControlProps,
-  pickerInputLabel,
-  dialogTitleText,
-  dialogCancelText,
+  pickerInputLabel = '',
+  dialogTitleText = 'FontAwesome Icon Picker',
+  dialogCancelText = 'Cancel',
   dialogProps,
   dialogContentProps,
   dialogActionsProps,
@@ -71,7 +71,7 @@ export function IconPicker({
   iconListContainerProps,
   iconTooltipProps,
   iconButtonProps,
-  iconListIconSize,
+  iconListIconSize = 2,
 }: IconPickerProps) {
   const [showIconListModal, setShowIconListModal] = useState<boolean>(false)
   const [search, setSearch] = useState<string>('')
@@ -208,14 +208,3 @@ export function IconPicker({
   )
 }
 
-IconPicker.defaultProps = {
-  showSearch: false,
-  searchPlaceholder: 'Search',
-  iconPerPage: 54,
-  pickerInputLabel: '',
-  dialogTitleText: 'FontAwesome Icon Picker',
-  dialogCancelText: 'Cancel',
-  pickerButtonIconSize: 2,
-  iconListIconSize: 2,
-  name: 'icon',
-}
